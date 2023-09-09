@@ -25,14 +25,19 @@ namespace Full_GRASP_And_SOLID.Library
             this.steps.Remove(step);
         }
 
-        public void PrintRecipe()
+        /* aca creo el metodo GetStepsArray() el cual me va a permitir obtener los
+         * datos del ArrayList steps sin necesidad de retornarlo en si, esto lo hice
+         * asi para poder mantener y respetar los principios de SRP, porque si hiciera
+         * un GetSteps() que retornara directamente el ArrayList, seria lo mismo que
+         * hacerlo public en vez de private, lo cual no es lo que queremos ya que steps
+         * en realidad no deberia ser algo que podamos acceder desde fuera de la clase
+         * para respetar lso principios */
+        public Step[] GetStepsArray()
         {
-            Console.WriteLine($"Receta de {this.FinalProduct.Description}:");
-            foreach (Step step in this.steps)
-            {
-                Console.WriteLine($"{step.Quantity} de '{step.Input.Description}' " +
-                    $"usando '{step.Equipment.Description}' durante {step.Time}");
-            }
+            /* usamos steps y le decimos .ToArray(typeof(Step) lo cual indica que vamos
+             * a convertir a tipo de dato Array a todo el contenido de steps que sea de
+             * tipo Step y lo vamos a almacenar en el Step[] que estamos retornando */
+            return (Step[])steps.ToArray(typeof(Step));
         }
     }
 }
